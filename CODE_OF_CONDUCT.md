@@ -1,32 +1,107 @@
-# Contributing to Diabetes-care-with-AI
+# Contributing to Diabetes Care with AI 🩺
 
-Thank you for your interest in contributing! 🎉  
-We welcome contributions from developers, designers, writers, and healthcare AI enthusiasts of all skill levels. Whether you're fixing a bug, suggesting a new feature, improving docs, or writing tests — you’re welcome here! 
-## 🚀 Getting Started
+Thank you for your interest in contributing!  
+This project leverages AI to provide accessible diabetes risk assessment and health information.  
+We welcome contributions from developers, data scientists, and UI/UX designers of all skill levels.
 
-To start contributing:
+---
 
-1. **Fork the repository**  
-   Click on the **Fork** button at the top of the repo page.
+## 🚀 Quick Start Guide
 
-2. **Clone your fork**
-   ```bash
-   git clone https://github.com/<your-username>/Diabetes-care-with-AI.git
-   cd Diabetes-care-with-AI
+### 1. Fork and Clone
 
-3. **Install Dependencies**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate       # macOS/Linux
-   .\venv\Scripts\activate        # Windows
-   pip install -r requirements.txt
+- Fork the repository on GitHub.
+- Clone your fork locally:
 
-4. **Create .env file**
-   Create a .env file in the root:
-   ```
-    GEMINI_API_KEY=your_api_key_here
+```bash
+git clone https://github.com/YOUR_USERNAME/Diabetes-care-with-AI.git
+cd Diabetes-care-with-AI
+```
 
+- Add the upstream remote:
+
+```bash
+git remote add upstream https://github.com/Anshika09Singh/Diabetes-care-with-AI.git
+```
+
+---
+
+### 2. Environment Setup
+
+```bash
+# Create and activate virtual environment
+python -m venv venv
+
+# Windows
+.\venv\Scripts\activate
+
+# macOS/Linux
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+### 3. Configuration
+
+Create a `.env` file in the root directory:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
+> ⚠️ Do not commit the `.env` file. It is ignored via `.gitignore`.
+
+---
+
+### 4. Run the Application
+
+```bash
+# Development mode
+python app.py
+
+# Production mode (Gunicorn)
+gunicorn app:app --bind 0.0.0.0:5000
+```
+
+Access the app at: **http://localhost:5000**
+
+---
+
+## 📂 Project Structure
+
+| File / Folder | Description |
+|--------------|------------|
+| `app.py` | Flask application core (Routes, ML logic, Gemini API) |
+| `diabetes_model.pkl` | Trained scikit-learn model |
+| `scaler.pkl` | StandardScaler for feature normalization |
+| `train.ipynb` | Model training & EDA notebook |
+| `templates/` | Jinja2 HTML templates |
+| `static/` | CSS, JS, and image assets |
+
+---
+
+## 🔌 API Endpoints
+
+### Web Interface
+- `GET /` : Landing Page  
+- `GET /index` : Diabetes Prediction Form  
+- `GET /chatbot` : AI Assistant Interface  
+- `GET /forum` : Community Forum  
+
+### Backend API
+- `POST /predict` : Processes health data and returns diabetes risk  
+- `POST /generate` : Gemini AI chatbot interface  
+  ```json
+  { "message": "string" }
+  ```
+- `GET /api/posts` : Fetch all forum entries  
+
+---
 # 💡 What Can You Contribute?
+
 ## 🐛 Bug Fixes
 
 Found a bug?
@@ -51,6 +126,7 @@ Clarifying parts of the contribution guide
 ## 🧪 Tests
 
 Help us improve stability by:
+
 Adding or updating tests in tests/
 Ensuring coverage for new features
 
@@ -71,35 +147,85 @@ refactor: — code restructuring
 test: — adding or updating tests
 
 Example:
+
 ```
+
     git commit -m "feat: add health dashboard component"
+
+```
+---
+## 🛠 Contribution Workflow
+
+### 1. Pick an Issue
+- Check the **Issues** tab for bugs or feature requests.
+- If you have a new idea, open an issue first for discussion.
+
+---
+
+### 2. Branching and Commits
+
+Create a feature branch:
+
+```bash
+git checkout -b feat/your-feature-name
 ```
 
-# 📤 Pull Request Process
+We follow **Conventional Commits**:
 
-1. Make sure your branch is up to date with main
-2. Push your changes
-3. Open a Pull Request with a clear description
-4.Reference related issue (if any)
-5.Add screenshots if UI changes were made
-6.Respond to review feedback
+- `feat:` A new feature  
+- `fix:` A bug fix  
+- `docs:` Documentation changes  
+- `style:` Formatting / lint fixes  
+- `refactor:` Code restructuring  
 
-# 🛠 Code Review & Quality
+---
 
-Maintain code style of the project
-Write clear, concise diffs
-Add tests for new functionality
-Ensure all tests pass before submitting
+### 3. Submit a Pull Request
 
-# 🧑‍🤝‍🧑 Community Standards
+1. Push your branch:
+```bash
+git push origin feat/your-feature-name
+```
+2. Open a PR against the `main` branch.
+3. Link the related issue (e.g., `Closes #52`).
+4. Add screenshots for UI changes.
 
-Please be respectful and constructive. We follow a Code of Conduct — by participating, you agree to uphold these standards.
+---
 
-#❓ Need Help?
+## ❓ Troubleshooting
 
-If you’re unsure how to proceed:
+### Issue: `GEMINI_API_KEY` not found
+- Ensure `.env` exists in the root directory.
+- Variable name must be **exactly** `GEMINI_API_KEY`.
 
-Open an issue asking for guidance
-Ask for help in your PR comments
+### Issue: Model file not found (`.pkl`)
+- Run `train.ipynb` to regenerate the model and scaler.
 
+### Issue: Port 5000 already in use
+
+**Windows**
+```bash
+netstat -ano | findstr :5000
+taskkill /PID <PID> /F
+```
+
+**macOS/Linux**
+```bash
+lsof -i :5000
+kill -9 <PID>
+```
+
+---
+
+## ⚖️ Community Standards
+
+Please be respectful and professional in all interactions.  
+We aim to build a supportive and inclusive environment for healthcare innovation.
+
+---
+
+💬 **Questions?**  
+Open an issue or comment on your Pull Request.
+
+Happy coding! 🚀
 Thank you for making Diabetes-care-with-AI better! ❤️
